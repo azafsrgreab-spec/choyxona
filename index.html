@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="uz" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registon Choyxonasi — Samarqand milliy taomlar va choyxona maskani</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
+                    },
+                    colors: {
+                        choyxona: {
+                            forest: '#0F2E24',     // To'q zumrad yashil (Asosiy fon)
+                            emerald: '#164234',    // Choy bargi yashili
+                            wood: '#2C1A12',       // Quyuq yong'oq yog'ochi
+                            copper: '#B45309',     // Mis / Oltin bezak
+                            gold: '#D97706',       // Yorqin oltin
+                            amber: '#F59E0B',      // Zarhal oltin
+                            cream: '#FBF8F1',      // Issiq krem / Paxta rangi
+                            sand: '#F3ECE0',       // Qum rangli karta foni
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-choyxona-cream text-stone-800 font-sans antialiased selection:bg-choyxona-gold selection:text-white overflow-x-hidden">
+
+    <!-- ==================== 1. HEADER & NAVIGATION ==================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-choyxona-forest/95 backdrop-blur-md border-b border-amber-400/15 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center gap-3.5 group">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-choyxona-gold to-choyxona-copper flex items-center justify-center border border-amber-200/40 shadow-lg group-hover:scale-105 transition-transform">
+                        <!-- Custom Piyola & Teapot SVG Icon -->
+                        <svg class="w-6 h-6 text-choyxona-cream" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M4 11h16c0 4.5-3.6 8-8 8s-8-3.5-8-8z" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M8 21h8" stroke-linecap="round"/>
+                            <path d="M9 7c0-1.5 1-2 1-3.5M12 7c0-1.5 1-2 1-3.5M15 7c0-1.5 1-2 1-3.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block font-serif text-xl sm:text-2xl font-bold text-choyxona-cream tracking-wide leading-none">Registon Choyxonasi</span>
+                        <span class="block text-[10px] uppercase tracking-[0.25em] text-amber-400 font-semibold mt-1">Samarqand Milliy Oshxonasi</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-stone-200">
+                    <a href="#menyu" class="hover:text-amber-400 transition-colors">Menyu</a>
+                    <a href="#muhit" class="hover:text-amber-400 transition-colors">Choyxona haqida</a>
+                    <a href="#joylar" class="hover:text-amber-400 transition-colors">So'ri va kabinalar</a>
+                    <a href="#bron" class="hover:text-amber-400 transition-colors">Stol bron qilish</a>
+                    <a href="#aloqa" class="hover:text-amber-400 transition-colors">Aloqa</a>
+                </nav>
+
+                <!-- Action Buttons: Pre-order Cart & Reserve Table -->
+                <div class="hidden sm:flex items-center gap-3">
+                    <button onclick="toggleCartDrawer()" class="relative px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 text-amber-200 border border-amber-300/20 text-xs font-semibold flex items-center gap-2 transition-all" title="Oldindan tanlangan taomlar">
+                        <i class="fa-solid fa-bowl-food text-amber-400 text-sm"></i>
+                        <span>Taomlar</span>
+                        <span id="navCartCount" class="px-2 py-0.5 rounded-full bg-choyxona-gold text-white text-[11px] font-bold">0</span>
+                    </button>
+
+                    <a href="#bron" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-choyxona-gold to-choyxona-copper hover:from-amber-500 hover:to-choyxona-gold text-white font-semibold text-sm shadow-lg shadow-amber-900/30 transition-all transform hover:-translate-y-0.5">
+                        Stol bron qilish
+                    </a>
+                </div>
+
+                <!-- Mobile Controls -->
+                <div class="flex items-center gap-2 lg:hidden">
+                    <button onclick="toggleCartDrawer()" class="relative p-2.5 rounded-xl bg-white/10 text-amber-300" aria-label="Tanlangan taomlar">
+                        <i class="fa-solid fa-bowl-food text-lg"></i>
+                        <span id="mobileNavCartCount" class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-choyxona-gold text-white text-[10px] font-bold flex items-center justify-center">0</span>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="p-2.5 rounded-xl text-white hover:bg-white/10 transition-colors" aria-label="Menyu">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-choyxona-forest border-t border-amber-400/15 px-4 pt-3 pb-6 space-y-2.5">
+            <a href="#menyu" onclick="toggleMobileMenu()" class="block py-2.5 px-3 rounded-xl text-stone-200 hover:bg-white/10 hover:text-amber-400 font-medium">Menyu</a>
+            <a href="#muhit" onclick="toggleMobileMenu()" class="block py-2.5 px-3 rounded-xl text-stone-200 hover:bg-white/10 hover:text-amber-400 font-medium">Choyxona haqida</a>
+            <a href="#joylar" onclick="toggleMobileMenu()" class="block py-2.5 px-3 rounded-xl text-stone-200 hover:bg-white/10 hover:text-amber-400 font-medium">So'ri va kabinalar</a>
+            <a href="#bron" onclick="toggleMobileMenu()" class="block py-2.5 px-3 rounded-xl text-stone-200 hover:bg-white/10 hover:text-amber-400 font-medium">Stol bron qilish</a>
+            <a href="#aloqa" onclick="toggleMobileMenu()" class="block py-2.5 px-3 rounded-xl text-stone-200 hover:bg-white/10 hover:text-amber-400 font-medium">Aloqa</a>
+            <div class="pt-2">
+                <a href="#bron" onclick="toggleMobileMenu()" class="block w-full text-center py-3 rounded-xl bg-gradient-to-r from-choyxona-gold to-choyxona-copper text-white font-bold text-sm shadow-md">
+                    Stol bron qilish
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== 2. HERO SECTION ==================== -->
+    <section class="relative min-h-screen flex items-center pt-24 pb-16 bg-choyxona-forest overflow-hidden">
+        <!-- Background Image & Atmospheric Gradient -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1633321702518-7feccafb94d5?auto=format&fit=crop&w=1920&q=85"
+                 onerror="this.src='https://placehold.co/1920x1080/0F2E24/D97706?text=Registon+Choyxonasi+Samarqand'"
+                 alt="Samarqand milliy oshi va dasturxoni"
+                 class="w-full h-full object-cover object-center opacity-35 scale-105">
+            <div class="absolute inset-0 bg-gradient-to-r from-choyxona-forest via-choyxona-forest/85 to-choyxona-wood/75"></div>
+
+            <!-- Decorative Oriental Girih Ornament SVG -->
+            <svg class="absolute -right-20 top-20 w-[460px] h-[460px] text-amber-400/10 pointer-events-none" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2">
+                <polygon points="100,10 125,75 190,100 125,125 100,190 75,125 10,100 75,75" />
+                <polygon points="100,25 153,47 175,100 153,153 100,175 47,153 25,100 47,47" />
+                <circle cx="100" cy="100" r="42" />
+                <circle cx="100" cy="100" r="68" stroke-dasharray="4 4" />
+            </svg>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Editorial Content -->
+                <div class="lg:col-span-7 text-choyxona-cream space-y-6">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-amber-400/15 border border-amber-400/30 text-amber-200 text-xs sm:text-sm font-medium">
+                        <i class="fa-solid fa-fire-flame-curved text-amber-400"></i>
+                        <span>Har kuni soat 11:30 da tandir va zig'ir yog'li Samarqand oshi ochiladi</span>
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.12]">
+                        Haqiqiy Samarqand palovi, <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-orange-300">issiq tandir noni</span> va xushbo'y ko'k choy maskani
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-stone-300 max-w-2xl leading-relaxed">
+                        <strong>Registon Choyxonasi</strong> — ko'p asrlik pazandachilik an'analari, chinorlar soyasidagi yog'och so'rilar va samimiy o'zbekona mehmondo'stlik jamlangan shinam dargoh.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#bron" class="px-7 py-4 rounded-2xl bg-gradient-to-r from-choyxona-gold to-choyxona-copper hover:from-amber-500 hover:to-choyxona-gold text-white font-bold text-base shadow-xl shadow-amber-950/40 transition-all transform hover:-translate-y-0.5 flex items-center gap-2.5">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>Stol bron qilish</span>
+                        </a>
+                        <a href="#menyu" class="px-7 py-4 rounded-2xl bg-white/10 hover:bg-white/15 text-choyxona-cream font-semibold text-base border border-amber-200/25 backdrop-blur-sm transition-all flex items-center gap-2">
+                            <span>Menyuni ko'rish</span>
+                            <i class="fa-solid fa-arrow-down text-amber-400 text-sm"></i>
+                        </a>
+                    </div>
+
+                    <!-- Location & Working Hours Info Strip -->
+                    <div class="grid sm:grid-cols-2 gap-4 pt-6 border-t border-white/15 max-w-xl">
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-400/15 text-amber-400 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs uppercase tracking-wider text-amber-300 font-bold">Manzilimiz</div>
+                                <div class="text-sm text-stone-200 mt-0.5">Samarqand sh., Toshkent ko'chasi, 48 (Registon maydoni yaqinida)</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-400/15 text-emerald-300 flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <div class="text-xs uppercase tracking-wider text-emerald-300 font-bold">Ish vaqtimiz</div>
+                                <div class="text-sm text-stone-200 mt-0.5">Har kuni: 09:00 dan 23:30 gacha (dam olish kunlarisiz)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Featured Dish & Tea Showcase Card -->
+                <div class="lg:col-span-5">
+                    <div class="relative bg-choyxona-wood/90 backdrop-blur-md rounded-3xl p-6 sm:p-7 border border-amber-400/30 shadow-2xl text-choyxona-cream">
+                        <div class="relative rounded-2xl overflow-hidden h-60 mb-5 border border-amber-300/20">
+                            <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=80"
+                                 onerror="this.src='https://placehold.co/800x500/2C1A12/F59E0B?text=Samarqand+To%27y+Oshi'"
+                                 alt="Samarqand zig'ir oshi"
+                                 class="w-full h-full object-cover">
+                            <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-choyxona-forest/90 text-amber-300 text-xs font-bold border border-amber-400/30">
+                                <i class="fa-solid fa-award mr-1"></i> Oshpaz tavsiyasi
+                            </span>
+                        </div>
+
+                        <div class="flex items-start justify-between gap-4">
+                            <div>
+                                <h2 class="font-serif text-2xl font-bold text-amber-200">Samarqand Zig'ir Oshi</h2>
+                                <p class="text-xs sm:text-sm text-stone-300 mt-1 leading-relaxed">
+                                    Alanga guruchi, sariq sabzi, no'xat, mayiz, yumshoq mol go'shti va qazi bilan mis qozonda damlangan shohona palov.
+                                </p>
+                            </div>
+                            <div class="text-right shrink-0">
+                                <span class="block text-xs text-stone-400">1 porsiya</span>
+                                <span class="font-bold text-lg text-amber-400">55 000 so'm</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between gap-3">
+                            <span class="text-xs text-emerald-300 font-medium">
+                                <i class="fa-solid fa-leaf mr-1"></i> Achichuk salati va ko'k choy bilan ayni muddao
+                            </span>
+                            <button onclick="addToCart('osh')" class="px-4 py-2.5 rounded-xl bg-choyxona-gold hover:bg-amber-500 text-white text-xs font-bold transition-all flex items-center gap-1.5 shrink-0">
+                                <i class="fa-solid fa-plus"></i>
+                                <span>Oldindan tanlash</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 3. INTERACTIVE MENU SECTION ==================== -->
+    <section id="menyu" class="py-20 sm:py-24 bg-choyxona-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-choyxona-forest/10 text-choyxona-forest text-xs font-bold uppercase tracking-widest mb-3">Milliy dasturxon</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-choyxona-wood">Choyxona menyusi</h2>
+                <p class="text-stone-600 mt-3 text-base sm:text-lg">
+                    Stol bron qilishdan avval o'zingizga yoqqan taomlarni tanlab qo'yishingiz mumkin — tashrif buyurganingizda dasturxoningiz tayyor turadi!
+                </p>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-12">
+                <button onclick="filterMenu('all', this)" class="menu-filter-btn active px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-choyxona-forest text-amber-200 shadow-md transition-all">
+                    Barchasi
+                </button>
+                <button onclick="filterMenu('main', this)" class="menu-filter-btn px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-choyxona-sand text-choyxona-wood hover:bg-amber-100 border border-amber-900/10 transition-all">
+                    <i class="fa-solid fa-fire-burner mr-1.5 text-choyxona-copper"></i>Asosiy taomlar
+                </button>
+                <button onclick="filterMenu('tandir', this)" class="menu-filter-btn px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-choyxona-sand text-choyxona-wood hover:bg-amber-100 border border-amber-900/10 transition-all">
+                    <i class="fa-solid fa-bread-slice mr-1.5 text-choyxona-copper"></i>Tandir va Salatlar
+                </button>
+                <button onclick="filterMenu('tea', this)" class="menu-filter-btn px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold bg-choyxona-sand text-choyxona-wood hover:bg-amber-100 border border-amber-900/10 transition-all">
+                    <i class="fa-solid fa-mug-hot mr-1.5 text-choyxona-copper"></i>Choy va Shirinliklar
+                </button>
+            </div>
+
+            <!-- Menu Cards Grid -->
+            <div id="menuGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+                <!-- Dynamically rendered via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 4. CHOYXONA ATMOSPHERE & SEATING ZONES ==================== -->
+    <section id="muhit" class="py-20 sm:py-24 bg-choyxona-forest text-choyxona-cream relative overflow-hidden">
+        <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-choyxona-copper via-amber-400 to-choyxona-copper"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Heritage & Atmosphere Block -->
+            <div class="grid lg:grid-cols-12 gap-10 items-center mb-20">
+                <div class="lg:col-span-6 space-y-5">
+                    <span class="inline-block px-4 py-1.5 rounded-full bg-amber-400/15 text-amber-300 text-xs font-bold uppercase tracking-widest">Choyxona haqida</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                        Samarqandning qadimiy choyxona an'analari va ruhiyati
+                    </h2>
+                    <p class="text-stone-300 text-sm sm:text-base leading-relaxed">
+                        Registon Choyxonasida har bir detal o'zbek hunarmandchiligi mehr-muhabbati bilan yaratilgan: o'ymakor yong'oq ustunlar, Rishton sopol laganlari, mis choynaklar va hovli o'rtasidagi salqin favvora.
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-3">
+                        <div class="p-4 rounded-2xl bg-white/5 border border-amber-300/15">
+                            <div class="text-amber-400 text-xl mb-1"><i class="fa-solid fa-seedling"></i></div>
+                            <div class="font-bold text-sm">Halol va barra</div>
+                            <div class="text-xs text-stone-400 mt-0.5">Har tonggi yangi mahsulotlar</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white/5 border border-amber-300/15">
+                            <div class="text-emerald-300 text-xl mb-1"><i class="fa-solid fa-mug-saucer"></i></div>
+                            <div class="font-bold text-sm">20+ choy turlari</div>
+                            <div class="text-xs text-stone-400 mt-0.5">Tog' giyohlari va ko'k choy</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-white/5 border border-amber-300/15 col-span-2 sm:col-span-1">
+                            <div class="text-amber-400 text-xl mb-1"><i class="fa-solid fa-users"></i></div>
+                            <div class="font-bold text-sm">Oilaviy muhit</div>
+                            <div class="text-xs text-stone-400 mt-0.5">Keng so'rilar va kabinalar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+                    <div class="rounded-3xl overflow-hidden h-64 sm:h-72 border border-amber-300/20 shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=700&q=80"
+                             onerror="this.src='https://placehold.co/600x700/164234/F59E0B?text=Sharqona+Choy+Dasturxoni'"
+                             alt="Sharqona choy dasturxoni" class="w-full h-full object-cover">
+                    </div>
+                    <div class="rounded-3xl overflow-hidden h-64 sm:h-72 border border-amber-300/20 shadow-xl mt-6">
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=700&q=80"
+                             onerror="this.src='https://placehold.co/600x700/2C1A12/F59E0B?text=Issiq+Qo%27ra+Kaboblari'"
+                             alt="Issiq qo'ra kaboblari" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seating Zones Sub-section -->
+            <div id="joylar" class="pt-6">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-xs font-bold uppercase tracking-widest text-amber-400">Joy turlari</span>
+                    <h3 class="font-serif text-3xl sm:text-4xl font-bold mt-2">O'zingizga qulay joyni tanlang</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-7">
+                    <!-- Zone 1: So'ri / Tapchan -->
+                    <div class="bg-choyxona-emerald/70 rounded-3xl p-7 border border-amber-300/20 flex flex-col justify-between hover:border-amber-400/50 transition-all">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="w-12 h-12 rounded-2xl bg-amber-400/15 text-amber-300 flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-couch"></i>
+                                </span>
+                                <span class="px-3 py-1 rounded-full bg-amber-400/20 text-amber-200 text-xs font-bold">4 – 12 kishi</span>
+                            </div>
+                            <h4 class="font-serif text-2xl font-bold text-amber-200">Hovlidagi So'ri (Tapchan)</h4>
+                            <p class="text-sm text-stone-300 mt-3 leading-relaxed">
+                                Chinorlar soyasi va favvora shildirashi ostida joylashgan o'ymakor yog'och tapchanlar. Atlas ko'rpachalar va yumshoq yostiqlar bilan bezatilgan.
+                            </p>
+                        </div>
+                        <button onclick="selectSeatingZone('sori')" class="mt-6 w-full py-3 rounded-xl bg-white/10 hover:bg-choyxona-gold text-white font-semibold text-sm transition-colors">
+                            So'ri band qilish
+                        </button>
+                    </div>
+
+                    <!-- Zone 2: Milliy Umumiy Zal -->
+                    <div class="bg-choyxona-emerald/70 rounded-3xl p-7 border border-amber-300/20 flex flex-col justify-between hover:border-amber-400/50 transition-all">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="w-12 h-12 rounded-2xl bg-emerald-400/15 text-emerald-300 flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-chair"></i>
+                                </span>
+                                <span class="px-3 py-1 rounded-full bg-emerald-400/20 text-emerald-200 text-xs font-bold">2 – 8 kishi</span>
+                            </div>
+                            <h4 class="font-serif text-2xl font-bold text-amber-200">Milliy Umumiy Zal</h4>
+                            <p class="text-sm text-stone-300 mt-3 leading-relaxed">
+                                Suzana kashtalari va ganchkor naqshlar bilan bezatilgan keng, yorug' va salqin zal. Tezkor tushlik hamda do'stlar davrasi uchun qulay stol-stullar.
+                            </p>
+                        </div>
+                        <button onclick="selectSeatingZone('zal')" class="mt-6 w-full py-3 rounded-xl bg-white/10 hover:bg-choyxona-gold text-white font-semibold text-sm transition-colors">
+                            Zaldan stol tanlash
+                        </button>
+                    </div>
+
+                    <!-- Zone 3: VIP Oilaviy Kabina -->
+                    <div class="bg-choyxona-emerald/70 rounded-3xl p-7 border border-amber-300/20 flex flex-col justify-between hover:border-amber-400/50 transition-all">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="w-12 h-12 rounded-2xl bg-amber-400/15 text-amber-300 flex items-center justify-center text-xl">
+                                    <i class="fa-solid fa-crown"></i>
+                                </span>
+                                <span class="px-3 py-1 rounded-full bg-amber-400/20 text-amber-200 text-xs font-bold">6 – 20 kishi</span>
+                            </div>
+                            <h4 class="font-serif text-2xl font-bold text-amber-200">VIP Oilaviy Kabina</h4>
+                            <p class="text-sm text-stone-300 mt-3 leading-relaxed">
+                                Oila a'zolari va aziz mehmonlar uchun alohida yopiq shinam xona. Shaxsiy konditsioner, milliy dasturxon bezagi va maxsus ofitsiant xizmati mavjud.
+                            </p>
+                        </div>
+                        <button onclick="selectSeatingZone('vip')" class="mt-6 w-full py-3 rounded-xl bg-white/10 hover:bg-choyxona-gold text-white font-semibold text-sm transition-colors">
+                            VIP kabina band qilish
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 5. TABLE RESERVATION & PRE-ORDER SECTION ==================== -->
+    <section id="bron" class="py-20 sm:py-24 bg-choyxona-sand border-y border-amber-900/10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-choyxona-copper/10 text-choyxona-copper text-xs font-bold uppercase tracking-widest mb-3">Onlayn bron qilish</span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-choyxona-wood">Stol va dasturxon bron qilish</h2>
+                <p class="text-stone-600 mt-3 text-sm sm:text-base">
+                    Joy turini, sana va vaqtni belgilang. Agar menyudan taom tanlagan bo'lsangiz, ular avtomatik ravishda bron ro'yxatingizga biriktiriladi.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <!-- Left Reservation Form -->
+                <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-9 shadow-lg border border-amber-900/10">
+                    <form id="reservationForm" onsubmit="submitReservation(event)" class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Joy turini tanlang</label>
+                            <select id="resZone" class="w-full px-4 py-3.5 rounded-xl border border-stone-300 bg-choyxona-cream text-stone-800 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-choyxona-gold">
+                                <option value="Hovlidagi So'ri (Tapchan)">Hovlidagi So'ri / Tapchan (4–12 kishi)</option>
+                                <option value="Milliy Umumiy Zal">Milliy Umumiy Zal (2–8 kishi)</option>
+                                <option value="VIP Oilaviy Kabina">VIP Oilaviy Kabina (6–20 kishi)</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Sana</label>
+                                <input type="date" id="resDate" required class="w-full px-3.5 py-3 rounded-xl border border-stone-300 bg-choyxona-cream text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Vaqt</label>
+                                <select id="resTime" class="w-full px-3.5 py-3 rounded-xl border border-stone-300 bg-choyxona-cream text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold">
+                                    <option value="12:00">12:00 (Osh vaqti)</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="18:00">18:00</option>
+                                    <option value="19:30" selected>19:30 (Kechki ovqat)</option>
+                                    <option value="20:30">20:30</option>
+                                    <option value="21:30">21:30</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Mehmonlar soni</label>
+                                <select id="resGuests" class="w-full px-3.5 py-3 rounded-xl border border-stone-300 bg-choyxona-cream text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold">
+                                    <option value="2">2 kishi</option>
+                                    <option value="4" selected>4 kishi</option>
+                                    <option value="6">6 kishi</option>
+                                    <option value="8">8 kishi</option>
+                                    <option value="10">10 kishi</option>
+                                    <option value="12">12 kishi</option>
+                                    <option value="15">15 kishi</option>
+                                    <option value="20">20 kishi</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Ismingiz</label>
+                                <input type="text" id="resName" required placeholder="Masalan: Jasur Rahimov" class="w-full px-4 py-3 rounded-xl border border-stone-300 bg-choyxona-cream text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Telefon raqamingiz</label>
+                                <input type="tel" id="resPhone" required placeholder="+998 90 123 45 67" class="w-full px-4 py-3 rounded-xl border border-stone-300 bg-choyxona-cream text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-stone-700 mb-2">Qo'shimcha istaklar (ixtiyoriy)</label>
+                            <input type="text" id="resNote" placeholder="Masalan: Bolalar o'rindig'i yoki ko'k choy oldindan damlansin..." class="w-full px-4 py-3 rounded-xl border border-stone-300 bg-choyxona-cream text-stone-800 text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold">
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-to-r from-choyxona-forest to-choyxona-emerald hover:from-choyxona-emerald hover:to-choyxona-forest text-amber-200 font-bold text-base shadow-lg transition-all flex items-center justify-center gap-2.5">
+                            <i class="fa-solid fa-check-double text-amber-400"></i>
+                            <span>Stolni bron qilish</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Pre-selected Dishes Summary Card -->
+                <div class="lg:col-span-5 bg-choyxona-wood text-choyxona-cream rounded-3xl p-6 sm:p-8 shadow-xl border border-amber-400/25">
+                    <div class="flex items-center justify-between pb-4 border-b border-white/10">
+                        <div>
+                            <span class="text-[11px] uppercase tracking-widest text-amber-400 font-bold">Oldindan buyurtma</span>
+                            <h3 class="font-serif text-2xl font-bold mt-0.5">Tanlangan taomlar</h3>
+                        </div>
+                        <a href="#menyu" class="text-xs text-amber-300 hover:underline font-semibold">+ Taom qo'shish</a>
+                    </div>
+
+                    <div id="bookingPreorderList" class="py-5 space-y-3 max-h-72 overflow-y-auto">
+                        <!-- Dynamically populated -->
+                    </div>
+
+                    <div class="pt-4 border-t border-white/15 space-y-3">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-stone-300">Stol bron qilish xizmati:</span>
+                            <span class="font-bold text-emerald-300">Bepul</span>
+                        </div>
+                        <div class="flex items-center justify-between text-lg">
+                            <span class="font-semibold">Taomlar jami summasi:</span>
+                            <span id="bookingPreorderTotal" class="font-bold text-amber-400">0 so'm</span>
+                        </div>
+                        <p class="text-[11px] text-stone-400 leading-relaxed">
+                            * Oldindan taom tanlash majburiy emas. Agar tanlasangiz, belgilangan vaqtga issiq holda dasturxonga tortiladi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== 6. FOOTER ==================== -->
+    <footer id="aloqa" class="bg-choyxona-forest text-stone-300 pt-16 pb-10 border-t border-amber-400/15">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-12 border-b border-white/10">
+                <!-- Col 1: Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-choyxona-gold/20 border border-amber-400/40 flex items-center justify-center text-amber-400">
+                            <i class="fa-solid fa-mug-hot"></i>
+                        </div>
+                        <span class="font-serif text-2xl font-bold text-choyxona-cream">Registon Choyxonasi</span>
+                    </div>
+                    <p class="text-sm text-stone-400 leading-relaxed">
+                        Samarqandning qoq markazida joylashgan milliy taomlar va choyxona madaniyati maskani. Har bir mehmon — aziz mehmon!
+                    </p>
+                    <div class="flex items-center gap-3 mt-5">
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-choyxona-gold text-white flex items-center justify-center transition-colors" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-choyxona-gold text-white flex items-center justify-center transition-colors" aria-label="Telegram">
+                            <i class="fa-brands fa-telegram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-choyxona-gold text-white flex items-center justify-center transition-colors" aria-label="Facebook">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 2: Contact Info -->
+                <div>
+                    <h4 class="text-amber-300 font-bold text-sm uppercase tracking-wider mb-4">Aloqa va Manzil</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-location-dot text-amber-400 mt-1"></i>
+                            <span>Samarqand shahri, Toshkent ko'chasi, 48-uy (Registon maydonidan 300 metr)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-phone text-amber-400"></i>
+                            <span>+998 (90) 600-44-55 | +998 (66) 235-11-22</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-amber-400"></i>
+                            <span>info@registonchoyxona.uz</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Working Hours -->
+                <div>
+                    <h4 class="text-amber-300 font-bold text-sm uppercase tracking-wider mb-4">Ish vaqti</h4>
+                    <div class="p-5 rounded-2xl bg-white/5 border border-amber-300/15 space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-stone-400">Dushanba – Yakshanba:</span>
+                            <span class="font-bold text-white">09:00 – 23:30</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-stone-400">Samarqand oshi suzilishi:</span>
+                            <span class="font-bold text-amber-400">11:30 – 15:30</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-stone-400">Kechki qo'ra kaboblar:</span>
+                            <span class="font-bold text-emerald-300">17:00 – 23:00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-7 text-center text-xs text-stone-400">
+                <p>&copy; 2026 Registon Choyxonasi. Barcha huquqlar himoyalangan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== SLIDE-OVER CART DRAWER ==================== -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleCartDrawer()" class="absolute inset-0 bg-black/60 backdrop-blur-xs"></div>
+        <div class="absolute right-0 top-0 bottom-0 w-full max-w-md bg-choyxona-cream shadow-2xl flex flex-col justify-between border-l border-amber-900/15">
+            <!-- Header -->
+            <div class="bg-choyxona-forest px-6 py-5 text-choyxona-cream flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] uppercase tracking-widest text-amber-400 font-bold">Oldindan tanlov</span>
+                    <h3 class="font-serif text-2xl font-bold">Tanlangan taomlar</h3>
+                </div>
+                <button onclick="toggleCartDrawer()" class="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Items -->
+            <div id="drawerCartItems" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Dynamically rendered -->
+            </div>
+
+            <!-- Footer -->
+            <div class="p-6 bg-choyxona-sand border-t border-amber-900/10 space-y-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-stone-600">Umumiy summa:</span>
+                    <span id="drawerCartTotal" class="text-xl font-bold text-choyxona-wood">0 so'm</span>
+                </div>
+                <a href="#bron" onclick="toggleCartDrawer()" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-choyxona-gold to-choyxona-copper text-white text-center font-bold text-sm shadow-md">
+                    Stol bron qilishga o'tish
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CONFIRMATION MODAL (RECEIPT) ==================== -->
+    <div id="receiptModal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-choyxona-forest/85 backdrop-blur-sm">
+        <div class="bg-choyxona-cream rounded-3xl max-w-md w-full p-7 text-center shadow-2xl border-2 border-amber-400/50">
+            <div class="w-16 h-16 rounded-full bg-emerald-100 text-choyxona-forest flex items-center justify-center text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3 class="font-serif text-3xl font-bold text-choyxona-wood mb-1">Stol muvaffaqiyatli bron qilindi!</h3>
+            <p class="text-sm text-stone-600 mb-5">
+                Sizni Registon Choyxonasida kutib qolamiz. Quyidagi bron raqamini saqlab qo'ying:
+            </p>
+            <div id="receiptDetails" class="p-4 rounded-2xl bg-choyxona-sand text-left text-xs text-stone-800 space-y-2 mb-6 border border-amber-900/15"></div>
+            <button onclick="closeReceiptModal()" class="w-full py-3.5 rounded-xl bg-choyxona-forest hover:bg-choyxona-emerald text-amber-200 font-bold text-sm transition-all">
+                Yaxshi, rahmat!
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== FLOATING MOBILE CART BAR ==================== -->
+    <div id="floatingCartBar" class="fixed bottom-4 inset-x-4 z-40 hidden sm:hidden">
+        <button onclick="toggleCartDrawer()" class="w-full py-3.5 px-5 rounded-2xl bg-choyxona-wood text-choyxona-cream shadow-2xl border border-amber-400/40 flex items-center justify-between">
+            <span class="flex items-center gap-2 text-xs font-bold">
+                <span id="floatCount" class="px-2 py-0.5 rounded-full bg-choyxona-gold text-white">0</span>
+                <span>ta taom tanlandi</span>
+            </span>
+            <span id="floatTotal" class="text-sm font-bold text-amber-300">0 so'm</span>
+        </button>
+    </div>
+
+    <!-- ==================== JAVASCRIPT LOGIC ==================== -->
+    <script>
+        // Menu Items Database
+        const menuItems = [
+            // Asosiy taomlar
+            {
+                id: 'osh',
+                category: 'main',
+                categoryLabel: 'Asosiy taom',
+                name: 'Samarqand Zig\'ir Oshi',
+                weight: '420 g (1 porsiya)',
+                price: 55000,
+                desc: 'Mis qozonda zig\'ir yog\'ida damlangan an\'anaviy Samarqand palovi, sariq sabzi, no\'xat, mayiz va qazi bilan.',
+                image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/2C1A12/F59E0B?text=Samarqand+Palovi'
+            },
+            {
+                id: 'qozonkabob',
+                category: 'main',
+                categoryLabel: 'Asosiy taom',
+                name: 'Samarqand Qozon Kabobi',
+                weight: '380 g',
+                price: 68000,
+                desc: 'Qozonda qizartirib pishirilgan yumshoq qo\'y qovurg\'asi, tillarang kartoshka va zira hidi ufurib turuvchi sous.',
+                image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/0F2E24/F59E0B?text=Qozon+Kabob'
+            },
+            {
+                id: 'manti',
+                category: 'main',
+                categoryLabel: 'Asosiy taom',
+                name: 'Qo\'lda tugilgan Manti (5 dona)',
+                weight: '350 g',
+                price: 42000,
+                desc: 'Yupqa xamir ichida mayda to\'g\'ralgan mol go\'shti, dumba va piyoz. Qaymoq hamda murch bilan tortiladi.',
+                image: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/2C1A12/F59E0B?text=Milliy+Manti'
+            },
+            {
+                id: 'shashlik',
+                category: 'main',
+                categoryLabel: 'Asosiy taom',
+                name: 'Qo\'ra Shashlik Assorti',
+                weight: '3 six (mol, qiyma, tovuq)',
+                price: 62000,
+                desc: 'Saksovul cho\'g\'ida pishirilgan suvli shashliklar, sirkali piyoz va ko\'katlar bilan.',
+                image: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/0F2E24/F59E0B?text=Qo%27ra+Shashlik'
+            },
+            {
+                id: 'shorva',
+                category: 'main',
+                categoryLabel: 'Asosiy taom',
+                name: 'Ko\'za Sho\'rva',
+                weight: '450 ml',
+                price: 38000,
+                desc: 'Sopol ko\'zachada past olovda qaynatilgan qo\'y go\'shti, no\'xat, sabzavotlar va xushbo\'y bulon.',
+                image: 'https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/2C1A12/F59E0B?text=Ko%27za+Sho%27rva'
+            },
+            {
+                id: 'norin',
+                category: 'main',
+                categoryLabel: 'Asosiy taom',
+                name: 'Toshkentcha-Samarqandcha Norin',
+                weight: '300 g',
+                price: 46000,
+                desc: 'Mayin to\'g\'ralgan xamir va qazi bo\'laklari, zira hamda issiq sho\'rva piyolasi bilan.',
+                image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/0F2E24/F59E0B?text=Milliy+Norin'
+            },
+
+            // Tandir va Salatlar
+            {
+                id: 'somsa',
+                category: 'tandir',
+                categoryLabel: 'Tandir va Salat',
+                name: 'Samarqand Tandir Somsasi (2 dona)',
+                weight: '320 g',
+                price: 28000,
+                desc: 'Qarsildoq qatlama xamir va shirador go\'shtli tandir somsasi, kunjut sepilgan.',
+                image: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/B45309/FFFFFF?text=Tandir+Somsa'
+            },
+            {
+                id: 'non',
+                category: 'tandir',
+                categoryLabel: 'Tandir va Salat',
+                name: 'Issiq Samarqand Patir Noni',
+                weight: '1 dona (500 g)',
+                price: 12000,
+                desc: 'Tandir cho\'g\'ida pishgan, sedana va kunjutli xushbo\'y Samarqand noni.',
+                image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/B45309/FFFFFF?text=Samarqand+Noni'
+            },
+            {
+                id: 'achichuk',
+                category: 'tandir',
+                categoryLabel: 'Tandir va Salat',
+                name: 'Achichuk va Suzma Dueti',
+                weight: '300 g',
+                price: 22000,
+                desc: 'Shirin pomidor, qizil piyoz, rayhon barglari hamda quyuq qishloq suzmasi.',
+                image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/0F2E24/FFFFFF?text=Achichuk+va+Suzma'
+            },
+
+            // Choy va Shirinliklar
+            {
+                id: 'kokchoy',
+                category: 'tea',
+                categoryLabel: 'Choy va Shirinlik',
+                name: '95-raqamli Ko\'k Choy (Choynak)',
+                weight: '800 ml (1 choynak)',
+                price: 15000,
+                desc: 'Rishton sopol choynagida damlangan xushbo\'y ko\'k choy, limon bo\'laklari bilan.',
+                image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/164234/F59E0B?text=Ko%27k+Choy'
+            },
+            {
+                id: 'ziravorchoy',
+                category: 'tea',
+                categoryLabel: 'Choy va Shirinlik',
+                name: 'Ziravorli va Tog\' Giyohli Choy',
+                weight: '800 ml (1 choynak)',
+                price: 24000,
+                desc: 'Kiyik o\'ti, zanjabil, dolchin, qalampirmunchoq va asal qo\'shib damlangan shifobaxsh choy.',
+                image: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/2C1A12/F59E0B?text=Ziravorli+Choy'
+            },
+            {
+                id: 'shirinlik',
+                category: 'tea',
+                categoryLabel: 'Choy va Shirinlik',
+                name: 'Samarqand Holvasi, Chak-chak va Navvot',
+                weight: '280 g (Choy dasturxoni)',
+                price: 32000,
+                desc: 'Asalli chak-chak, pistali Samarqand holvasi, sariq navvot va quritilgan mevalar likopchasi.',
+                image: 'https://images.unsplash.com/photo-1519676867240-f03562e64548?auto=format&fit=crop&w=800&q=80',
+                fallback: 'https://placehold.co/600x400/B45309/FFFFFF?text=Holva+va+Navvot'
+            }
+        ];
+
+        // Pre-order Cart State: { itemId: quantity }
+        let cart = {};
+        let activeCategory = 'all';
+
+        // Format currency in UZS
+        function formatPrice(num) {
+            return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " so'm";
+        }
+
+        // Render Menu Grid
+        function renderMenu() {
+            const grid = document.getElementById('menuGrid');
+            if (!grid) return;
+
+            const filtered = activeCategory === 'all'
+                ? menuItems
+                : menuItems.filter(item => item.category === activeCategory);
+
+            grid.innerHTML = filtered.map(item => {
+                const qty = cart[item.id] || 0;
+                return `
+                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-amber-900/10 transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-52 overflow-hidden bg-choyxona-sand">
+                                <img src="${item.image}" onerror="this.src='${item.fallback}'" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-choyxona-forest/90 text-amber-200 text-[11px] font-bold backdrop-blur-xs">
+                                    ${item.categoryLabel}
+                                </span>
+                                <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/65 text-white text-[11px] font-medium">
+                                    ${item.weight}
+                                </span>
+                            </div>
+
+                            <div class="p-6">
+                                <h3 class="font-serif text-2xl font-bold text-choyxona-wood leading-snug">${item.name}</h3>
+                                <p class="text-xs sm:text-sm text-stone-600 mt-2 leading-relaxed">${item.desc}</p>
+                            </div>
+                        </div>
+
+                        <div class="px-6 pb-6 pt-4 border-t border-stone-100 flex items-center justify-between gap-3">
+                            <div>
+                                <span class="block text-[11px] text-stone-400 font-medium">Narxi</span>
+                                <span class="text-lg font-bold text-choyxona-forest">${formatPrice(item.price)}</span>
+                            </div>
+
+                            ${qty === 0 ? `
+                                <button onclick="addToCart('${item.id}')" class="px-4 py-2.5 rounded-xl bg-choyxona-sand hover:bg-choyxona-gold text-choyxona-wood hover:text-white font-bold text-xs border border-amber-900/15 transition-all flex items-center gap-1.5">
+                                    <i class="fa-solid fa-plus"></i>
+                                    <span>Tanlash</span>
+                                </button>
+                            ` : `
+                                <div class="flex items-center gap-2 bg-choyxona-forest text-white px-2.5 py-1.5 rounded-xl">
+                                    <button onclick="updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white/15 hover:bg-white/25 flex items-center justify-center text-xs font-bold">-</button>
+                                    <span class="text-xs font-bold px-1.5">${qty}</span>
+                                    <button onclick="updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-choyxona-gold hover:bg-amber-500 flex items-center justify-center text-xs font-bold">+</button>
+                                </div>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Filter Menu by Category
+        function filterMenu(category, btn) {
+            activeCategory = category;
+            document.querySelectorAll('.menu-filter-btn').forEach(b => {
+                b.classList.remove('bg-choyxona-forest', 'text-amber-200', 'shadow-md');
+                b.classList.add('bg-choyxona-sand', 'text-choyxona-wood');
+            });
+            btn.classList.remove('bg-choyxona-sand', 'text-choyxona-wood');
+            btn.classList.add('bg-choyxona-forest', 'text-amber-200', 'shadow-md');
+            renderMenu();
+        }
+
+        // Cart Functions
+        function addToCart(id) {
+            cart[id] = (cart[id] || 0) + 1;
+            syncCartUI();
+            renderMenu();
+        }
+
+        function updateQty(id, delta) {
+            if (!cart[id]) return;
+            cart[id] += delta;
+            if (cart[id] <= 0) {
+                delete cart[id];
+            }
+            syncCartUI();
+            renderMenu();
+        }
+
+        function syncCartUI() {
+            const entries = Object.entries(cart);
+            let totalCount = 0;
+            let totalPrice = 0;
+
+            entries.forEach(([id, qty]) => {
+                const item = menuItems.find(m => m.id === id);
+                if (item) {
+                    totalCount += qty;
+                    totalPrice += item.price * qty;
+                }
+            });
+
+            // Update badges
+            document.getElementById('navCartCount').textContent = totalCount;
+            document.getElementById('mobileNavCartCount').textContent = totalCount;
+            document.getElementById('drawerCartTotal').textContent = formatPrice(totalPrice);
+            document.getElementById('bookingPreorderTotal').textContent = formatPrice(totalPrice);
+
+            // Floating Mobile Bar
+            const floatBar = document.getElementById('floatingCartBar');
+            if (totalCount > 0) {
+                floatBar.classList.remove('hidden');
+                document.getElementById('floatCount').textContent = totalCount;
+                document.getElementById('floatTotal').textContent = formatPrice(totalPrice);
+            } else {
+                floatBar.classList.add('hidden');
+            }
+
+            // Render Drawer Items & Booking Form Pre-order Summary
+            const drawerContainer = document.getElementById('drawerCartItems');
+            const bookingContainer = document.getElementById('bookingPreorderList');
+
+            if (entries.length === 0) {
+                drawerContainer.innerHTML = `
+                    <div class="text-center py-12 text-stone-500">
+                        <i class="fa-solid fa-utensils text-3xl text-amber-700/40 mb-3"></i>
+                        <p class="text-sm font-medium">Hozircha taom tanlanmagan</p>
+                        <p class="text-xs mt-1">Menyudan yoqqan taomlaringizni qo'shishingiz mumkin.</p>
+                    </div>
+                `;
+                bookingContainer.innerHTML = `
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-xs text-stone-300 text-center">
+                        Hozircha oldindan taom tanlanmagan. Istasangiz yuqoridagi menyudan taom qo'shing.
+                    </div>
+                `;
+            } else {
+                drawerContainer.innerHTML = entries.map(([id, qty]) => {
+                    const item = menuItems.find(m => m.id === id);
+                    return `
+                        <div class="flex items-center justify-between gap-3 p-3.5 rounded-2xl bg-white border border-amber-900/10">
+                            <div>
+                                <h4 class="font-bold text-sm text-choyxona-wood">${item.name}</h4>
+                                <span class="text-xs text-choyxona-copper font-semibold">${formatPrice(item.price * qty)}</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button onclick="updateQty('${id}', -1)" class="w-7 h-7 rounded-lg bg-choyxona-sand hover:bg-amber-200 text-choyxona-wood font-bold text-xs">-</button>
+                                <span class="text-xs font-bold w-5 text-center">${qty}</span>
+                                <button onclick="updateQty('${id}', 1)" class="w-7 h-7 rounded-lg bg-choyxona-forest text-white font-bold text-xs">+</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                bookingContainer.innerHTML = entries.map(([id, qty]) => {
+                    const item = menuItems.find(m => m.id === id);
+                    return `
+                        <div class="flex items-center justify-between gap-2 text-xs bg-white/5 px-3.5 py-2.5 rounded-xl border border-white/10">
+                            <span class="font-medium text-stone-200">${item.name} <strong class="text-amber-300">× ${qty}</strong></span>
+                            <div class="flex items-center gap-2">
+                                <span class="font-bold text-amber-200">${formatPrice(item.price * qty)}</span>
+                                <button onclick="updateQty('${id}', -1)" class="text-stone-400 hover:text-red-300 ml-1" title="Kamaytirish">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        // Drawer & Mobile Menu Toggles
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Pre-select Seating Zone from Cards and Scroll to Booking
+        function selectSeatingZone(zoneKey) {
+            const select = document.getElementById('resZone');
+            if (zoneKey === 'sori') select.value = "Hovlidagi So'ri (Tapchan)";
+            else if (zoneKey === 'zal') select.value = "Milliy Umumiy Zal";
+            else if (zoneKey === 'vip') select.value = "VIP Oilaviy Kabina";
+
+            document.getElementById('bron').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Submit Reservation & Show Confirmation Receipt Modal
+        function submitReservation(e) {
+            e.preventDefault();
+            const zone = document.getElementById('resZone').value;
+            const date = document.getElementById('resDate').value;
+            const time = document.getElementById('resTime').value;
+            const guests = document.getElementById('resGuests').value;
+            const name = document.getElementById('resName').value.trim();
+            const phone = document.getElementById('resPhone').value.trim();
+            const note = document.getElementById('resNote').value.trim();
+
+            const entries = Object.entries(cart);
+            let totalFood = 0;
+            let foodSummaryHTML = '';
+
+            if (entries.length > 0) {
+                const lines = entries.map(([id, qty]) => {
+                    const item = menuItems.find(m => m.id === id);
+                    totalFood += item.price * qty;
+                    return `${item.name} (${qty} ta)`;
+                }).join(', ');
+
+                foodSummaryHTML = `
+                    <div class="pt-2 border-t border-amber-900/15">
+                        <span class="block text-stone-500 mb-0.5">Oldindan tanlangan taomlar:</span>
+                        <strong class="text-choyxona-wood">${lines}</strong>
+                    </div>
+                    <div class="flex justify-between pt-1">
+                        <span>Taomlar summasi:</span>
+                        <strong class="text-choyxona-copper">${formatPrice(totalFood)}</strong>
+                    </div>
+                `;
+            }
+
+            const bookingCode = "RCH-" + Math.floor(1000 + Math.random() * 9000);
+
+            document.getElementById('receiptDetails').innerHTML = `
+                <div class="flex justify-between"><span>Bron kodi:</span><strong class="text-choyxona-forest text-sm">${bookingCode}</strong></div>
+                <div class="flex justify-between"><span>Mehmon:</span><strong>${name}</strong></div>
+                <div class="flex justify-between"><span>Telefon:</span><strong>${phone}</strong></div>
+                <div class="flex justify-between"><span>Joy turi:</span><strong>${zone}</strong></div>
+                <div class="flex justify-between"><span>Sana va vaqt:</span><strong>${date} • ${time}</strong></div>
+                <div class="flex justify-between"><span>Mehmonlar soni:</span><strong>${guests} kishi</strong></div>
+                ${note ? `<div class="flex justify-between"><span>Izoh:</span><strong>${note}</strong></div>` : ''}
+                ${foodSummaryHTML}
+            `;
+
+            const modal = document.getElementById('receiptModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeReceiptModal() {
+            const modal = document.getElementById('receiptModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Initialize Default Date & UI on Load
+        window.addEventListener('DOMContentLoaded', () => {
+            const today = new Date();
+            const dateStr = today.toISOString().split('T')[0];
+            const dateInput = document.getElementById('resDate');
+            if (dateInput) {
+                dateInput.value = dateStr;
+                dateInput.min = dateStr;
+            }
+            renderMenu();
+            syncCartUI();
+        });
+    </script>
+    <!-- ===== REGISTON QO'SHIMCHALARI: shu blokni asosiy faylda </body> dan OLDIN, eski <script> ning pastiga qo'ying ===== -->
+<style>
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+.card-in{animation:cin .5s both ease-out}
+@keyframes cin{from{opacity:0;transform:translateY(18px) scale(.97)}}
+.spin-slow{animation:spin 80s linear infinite;transform-origin:50% 50%}
+@keyframes spin{to{transform:rotate(360deg)}}
+.steam{position:absolute;right:9%;bottom:7%;width:140px;height:170px;opacity:.55;pointer-events:none}
+.steam i{position:absolute;bottom:78px;width:10px;height:60px;border-radius:50%;background:linear-gradient(to top,rgba(251,248,241,.55),transparent);filter:blur(5px);animation:steam 4s infinite ease-in}
+@keyframes steam{0%{transform:translateY(0) scaleX(1);opacity:0}30%{opacity:.8}100%{transform:translateY(-70px) scaleX(2.2);opacity:0}}
+@media(max-width:767px){.steam{display:none}}
+.tilt:not(.rv){transition:transform .15s ease-out}
+.bump{animation:bump .5s}
+@keyframes bump{40%{transform:scale(1.25)}}
+.chk{stroke-dasharray:60;stroke-dashoffset:60;animation:dr .6s .6s forwards}
+.chc{stroke-dasharray:190;stroke-dashoffset:190;animation:dr .7s forwards}
+@keyframes dr{to{stroke-dashoffset:0}}
+.lang-btn{padding:.5rem .65rem;color:#fde68a}
+.lang-btn.on{background:#D97706;color:#fff}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.card-in,.spin-slow,.steam i,.bump{animation:none}}
+</style>
+
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+/* ---------- 1. UZ → RU lug'at ---------- */
+const RU={
+"Menyu":"Меню","Choyxona haqida":"О чайхане","So'ri va kabinalar":"Топчаны и кабины","Stol bron qilish":"Забронировать стол","Aloqa":"Контакты","Taomlar":"Блюда",
+"Registon Choyxonasi":"Чайхана «Регистан»","Samarqand Milliy Oshxonasi":"Самаркандская национальная кухня",
+"Har kuni soat 11:30 da tandir va zig'ir yog'li Samarqand oshi ochiladi":"Ежедневно в 11:30 — тандыр и самаркандский плов на льняном масле",
+"Haqiqiy Samarqand palovi,":"Настоящий самаркандский плов,","issiq tandir noni":"горячая тандырная лепёшка","va xushbo'y ko'k choy maskani":"и ароматный зелёный чай",
+"— ko'p asrlik pazandachilik an'analari, chinorlar soyasidagi yog'och so'rilar va samimiy o'zbekona mehmondo'stlik jamlangan shinam dargoh.":"— вековые кулинарные традиции, деревянные топчаны в тени чинар и искреннее узбекское гостеприимство в одном уютном месте.",
+"Menyuni ko'rish":"Смотреть меню","Manzilimiz":"Наш адрес","Samarqand sh., Toshkent ko'chasi, 48 (Registon maydoni yaqinida)":"г. Самарканд, ул. Ташкентская, 48 (рядом с площадью Регистан)",
+"Ish vaqtimiz":"Время работы","Har kuni: 09:00 dan 23:30 gacha (dam olish kunlarisiz)":"Ежедневно: с 09:00 до 23:30 (без выходных)",
+"Oshpaz tavsiyasi":"Выбор шефа","Samarqand Zig'ir Oshi":"Самаркандский плов на льняном масле","1 porsiya":"1 порция","Oldindan tanlash":"Выбрать заранее",
+"Achichuk salati va ko'k choy bilan ayni muddao":"Идеально с салатом ачичук и зелёным чаем",
+"Milliy dasturxon":"Национальный дастархан","Choyxona menyusi":"Меню чайханы",
+"Stol bron qilishdan avval o'zingizga yoqqan taomlarni tanlab qo'yishingiz mumkin — tashrif buyurganingizda dasturxoningiz tayyor turadi!":"Выберите понравившиеся блюда заранее — к вашему приходу дастархан будет готов!",
+"Barchasi":"Все","Asosiy taomlar":"Основные блюда","Tandir va Salatlar":"Тандыр и салаты","Choy va Shirinliklar":"Чай и сладости",
+"Asosiy taom":"Основное блюдо","Tandir va Salat":"Тандыр и салат","Choy va Shirinlik":"Чай и сладость","Narxi":"Цена","Tanlash":"Выбрать",
+"Samarqand Qozon Kabobi":"Самаркандский казан-кебаб","Qo'lda tugilgan Manti (5 dona)":"Манты ручной лепки (5 шт.)","Qo'ra Shashlik Assorti":"Ассорти шашлыка","Ko'za Sho'rva":"Шурпа в кузе",
+"Toshkentcha-Samarqandcha Norin":"Нарын по-самаркандски","Samarqand Tandir Somsasi (2 dona)":"Самаркандская самса из тандыра (2 шт.)","Issiq Samarqand Patir Noni":"Горячая самаркандская патыр-лепёшка",
+"Achichuk va Suzma Dueti":"Ачичук и сузьма","95-raqamli Ko'k Choy (Choynak)":"Зелёный чай №95 (чайник)","Ziravorli va Tog' Giyohli Choy":"Пряный чай с горными травами","Samarqand Holvasi, Chak-chak va Navvot":"Самаркандская халва, чак-чак и навват",
+"Taom qidirish...":"Поиск блюд...","Saralash":"Сортировка","Narx: arzondan qimmatga":"Цена: по возрастанию","Narx: qimmatdan arzonga":"Цена: по убыванию","Nomi bo'yicha (A–Z)":"По названию (А–Я)","Hech narsa topilmadi":"Ничего не найдено",
+"Samarqandning qadimiy choyxona an'analari va ruhiyati":"Древние чайханные традиции и дух Самарканда","Halol va barra":"Халяль и свежее","Har tonggi yangi mahsulotlar":"Свежие продукты каждое утро",
+"20+ choy turlari":"20+ видов чая","Tog' giyohlari va ko'k choy":"Горные травы и зелёный чай","Oilaviy muhit":"Семейная атмосфера","Keng so'rilar va kabinalar":"Просторные топчаны и кабины",
+"Joy turlari":"Виды мест","O'zingizga qulay joyni tanlang":"Выберите удобное место",
+"Hovlidagi So'ri (Tapchan)":"Топчан во дворе","Milliy Umumiy Zal":"Национальный общий зал","VIP Oilaviy Kabina":"VIP семейная кабина",
+"So'ri band qilish":"Занять топчан","Zaldan stol tanlash":"Выбрать стол в зале","VIP kabina band qilish":"Забронировать VIP-кабину",
+"Onlayn bron qilish":"Онлайн-бронирование","Stol va dasturxon bron qilish":"Бронирование стола и дастархана","Joy turini tanlang":"Выберите тип места",
+"Hovlidagi So'ri / Tapchan (4–12 kishi)":"Топчан во дворе (4–12 чел.)","Milliy Umumiy Zal (2–8 kishi)":"Общий зал (2–8 чел.)","VIP Oilaviy Kabina (6–20 kishi)":"VIP-кабина (6–20 чел.)",
+"Sana":"Дата","Vaqt":"Время","Mehmonlar soni":"Количество гостей","12:00 (Osh vaqti)":"12:00 (время плова)","19:30 (Kechki ovqat)":"19:30 (ужин)",
+"Ismingiz":"Ваше имя","Telefon raqamingiz":"Ваш телефон","Qo'shimcha istaklar (ixtiyoriy)":"Пожелания (необязательно)","Stolni bron qilish":"Забронировать стол",
+"Oldindan buyurtma":"Предзаказ","Tanlangan taomlar":"Выбранные блюда","+ Taom qo'shish":"+ Добавить блюдо","Stol bron qilish xizmati:":"Услуга бронирования:","Bepul":"Бесплатно","Taomlar jami summasi:":"Сумма блюд:",
+"Hozircha taom tanlanmagan":"Блюда пока не выбраны","Menyudan yoqqan taomlaringizni qo'shishingiz mumkin.":"Добавьте понравившиеся блюда из меню.",
+"Hozircha oldindan taom tanlanmagan. Istasangiz yuqoridagi menyudan taom qo'shing.":"Предзаказ пока пуст. При желании добавьте блюда из меню выше.",
+"Oldindan tanlov":"Предварительный выбор","Umumiy summa:":"Итого:","Stol bron qilishga o'tish":"Перейти к бронированию","ta taom tanlandi":"блюд выбрано",
+"Mehmonlar fikri":"Отзывы гостей","Mehmonlarimiz nima deydi":"Что говорят наши гости",
+"Aziza K., Toshkent":"Азиза К., Ташкент","Mark S., Germaniya":"Марк С., Германия","Sherzod R., Samarqand":"Шерзод Р., Самарканд",
+"Samarqand oshi haqiqatan ham boshqacha — guruch yumshoq, go'sht erib turadi. Oilam bilan so'rida o'tirib, ajoyib kech o'tkazdik.":"Самаркандский плов действительно особенный — рис рассыпчатый, мясо тает во рту. Прекрасно провели вечер всей семьёй на топчане.",
+"Turistlar guruhi bilan keldik. Xizmat tez, narxlar adolatli, tandir noni esa juda mazali!":"Приехали с группой туристов. Быстрое обслуживание, честные цены, а лепёшка из тандыра — просто восторг!",
+"VIP kabinada to'y oldi davrasini o'tkazdik. Hammasi a'lo darajada tashkil etildi.":"Провели предсвадебный вечер в VIP-кабине. Всё организовано на отлично.",
+"Aloqa va Manzil":"Контакты и адрес","Samarqand shahri, Toshkent ko'chasi, 48-uy (Registon maydonidan 300 metr)":"г. Самарканд, ул. Ташкентская, д. 48 (300 м от площади Регистан)",
+"Ish vaqti":"Время работы","Dushanba – Yakshanba:":"Пн – Вс:","Samarqand oshi suzilishi:":"Подача самаркандского плова:","Kechki qo'ra kaboblar:":"Вечерние шашлыки:",
+"© 2026 Registon Choyxonasi. Barcha huquqlar himoyalangan.":"© 2026 Чайхана «Регистан». Все права защищены.",
+"Stol muvaffaqiyatli bron qilindi!":"Стол успешно забронирован!","Sizni Registon Choyxonasida kutib qolamiz. Quyidagi bron raqamini saqlab qo'ying:":"Ждём вас в чайхане «Регистан». Сохраните номер брони:","Yaxshi, rahmat!":"Хорошо, спасибо!",
+"Bron kodi:":"Код брони:","Mehmon:":"Гость:","Telefon:":"Телефон:","Joy turi:":"Тип места:","Sana va vaqt:":"Дата и время:","Mehmonlar soni:":"Количество гостей:","Izoh:":"Комментарий:","Taomlar summasi:":"Сумма блюд:","Oldindan tanlangan taomlar:":"Выбранные заранее блюда:",
+"Masalan: Jasur Rahimov":"Например: Жасур Рахимов","Masalan: Bolalar o'rindig'i yoki ko'k choy oldindan damlansin...":"Например: детский стульчик или заварите чай заранее..."
+};
+let lang='uz';try{lang=localStorage.getItem('rch_lang')||'uz'}catch(e){}
+
+function tr(){
+  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName)||!n.nodeValue.trim()?2:1});
+  let n;
+  while(n=w.nextNode()){
+    if(n._o===undefined)n._o=n.nodeValue;
+    const o=n._o,k=o.trim();let v=o;
+    if(lang==='ru'){const r=RU[k];v=r?o.replace(k,r):o.replace(/(\d+) kishi/g,'$1 чел.').replace(/so'm/g,'сум')}
+    if(n.nodeValue!==v)n.nodeValue=v;
+  }
+  $$('[placeholder]').forEach(e=>{if(e._p===undefined)e._p=e.placeholder;e.placeholder=lang==='ru'&&RU[e._p]||e._p});
+  document.documentElement.lang=lang;
+  $$('.lang-btn').forEach(b=>b.classList.toggle('on',b.dataset.l===lang));
+}
+const mkSw=()=>{const d=document.createElement('div');d.className='flex rounded-xl overflow-hidden border border-amber-300/25 text-[11px] font-bold';
+  d.innerHTML=['uz','ru'].map(l=>`<button class="lang-btn" data-l="${l}">${l.toUpperCase()}</button>`).join('');
+  d.onclick=e=>{const l=e.target.dataset.l;if(l){lang=l;try{localStorage.setItem('rch_lang',l)}catch(_){}tr()}};return d};
+$('header .sm\\:flex')?.prepend(mkSw());
+$('header .gap-2.lg\\:hidden')?.prepend(mkSw());
+
+/* ---------- 2. Menyu: qidiruv + saralash + silliq chiqish ---------- */
+let q='',sort='def',an=true;
+$('#menuGrid').insertAdjacentHTML('beforebegin',`<div class="flex flex-col sm:flex-row gap-3 max-w-2xl mx-auto mb-10"><div class="relative flex-1"><i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i><input id="mq" placeholder="Taom qidirish..." class="w-full pl-10 pr-4 py-3 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold"></div><select id="ms" class="px-4 py-3 rounded-xl border border-stone-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-choyxona-gold"><option value="def">Saralash</option><option value="asc">Narx: arzondan qimmatga</option><option value="desc">Narx: qimmatdan arzonga</option><option value="az">Nomi bo'yicha (A–Z)</option></select></div>`);
+$('#mq').oninput=e=>{q=e.target.value.toLowerCase().trim();renderMenu()};
+$('#ms').onchange=e=>{sort=e.target.value;an=true;renderMenu()};
+const _f=filterMenu;filterMenu=(c,b)=>{an=true;_f(c,b)};
+
+renderMenu=function(){
+  const g=$('#menuGrid');if(!g)return;
+  let l=menuItems.filter(i=>(activeCategory==='all'||i.category===activeCategory)&&(i.name+' '+(RU[i.name]||'')+' '+i.desc).toLowerCase().includes(q));
+  if(sort==='asc')l.sort((a,b)=>a.price-b.price);else if(sort==='desc')l.sort((a,b)=>b.price-a.price);else if(sort==='az')l.sort((a,b)=>a.name.localeCompare(b.name));
+  g.innerHTML=l.length?l.map((i,n)=>{const c=cart[i.id]||0;return `
+  <div data-id="${i.id}" class="${an?'card-in ':''}bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl border border-amber-900/10 transition-shadow duration-300 flex flex-col justify-between group" style="${an?`animation-delay:${n*60}ms`:''}">
+    <div>
+      <div class="relative h-52 overflow-hidden bg-choyxona-sand">
+        <img src="${i.image}" onerror="this.src='${i.fallback}'" alt="${i.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-choyxona-forest/90 text-amber-200 text-[11px] font-bold">${i.categoryLabel}</span>
+        <span class="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/65 text-white text-[11px] font-medium">${i.weight}</span>
+      </div>
+      <div class="p-6"><h3 class="font-serif text-2xl font-bold text-choyxona-wood leading-snug">${i.name}</h3><p class="text-xs sm:text-sm text-stone-600 mt-2 leading-relaxed">${i.desc}</p></div>
+    </div>
+    <div class="px-6 pb-6 pt-4 border-t border-stone-100 flex items-center justify-between gap-3">
+      <div><span class="block text-[11px] text-stone-400 font-medium">Narxi</span><span class="text-lg font-bold text-choyxona-forest">${formatPrice(i.price)}</span></div>
+      ${c===0?`<button onclick="addToCart('${i.id}')" class="px-4 py-2.5 rounded-xl bg-choyxona-sand hover:bg-choyxona-gold text-choyxona-wood hover:text-white font-bold text-xs border border-amber-900/15 transition-all flex items-center gap-1.5"><i class="fa-solid fa-plus"></i><span>Tanlash</span></button>`
+      :`<div class="flex items-center gap-2 bg-choyxona-forest text-white px-2.5 py-1.5 rounded-xl"><button onclick="updateQty('${i.id}',-1)" class="w-6 h-6 rounded-lg bg-white/15 hover:bg-white/25 text-xs font-bold">-</button><span class="text-xs font-bold px-1.5">${c}</span><button onclick="updateQty('${i.id}',1)" class="w-6 h-6 rounded-lg bg-choyxona-gold hover:bg-amber-500 text-xs font-bold">+</button></div>`}
+    </div></div>`}).join(''):`<p class="col-span-full text-center py-12 text-stone-500">Hech narsa topilmadi</p>`;
+  an=false;tr();
+};
+
+/* ---------- 3. Savatga "uchib borish" effekti ---------- */
+const bump=e=>{[e,e.closest('button')].forEach(x=>{if(!x)return;x.classList.remove('bump');void x.offsetWidth;x.classList.add('bump')})};
+const inView=r=>r.width>0&&r.bottom>0&&r.top<innerHeight;
+function fly(id){
+  if(RM)return;
+  const tg=$$('#navCartCount,#mobileNavCartCount').find(e=>e.offsetParent);if(!tg)return;
+  const im=[$(`[data-id="${id}"] img`),$('section.min-h-screen .lg\\:col-span-5 img')].find(x=>x&&inView(x.getBoundingClientRect()));if(!im)return;
+  const a=im.getBoundingClientRect(),b=tg.getBoundingClientRect(),c=document.createElement('img');
+  c.src=im.src;c.style.cssText=`position:fixed;z-index:80;left:${a.left}px;top:${a.top}px;width:${a.width}px;height:${a.height}px;object-fit:cover;border-radius:16px;pointer-events:none`;
+  document.body.appendChild(c);
+  c.animate([{transform:'none',opacity:1},{transform:`translate(${b.left+b.width/2-a.left-a.width/2}px,${b.top+b.height/2-a.top-a.height/2}px) scale(${24/a.width})`,opacity:.4}],{duration:700,easing:'cubic-bezier(.5,-.2,.8,.4)'}).onfinish=()=>{c.remove();bump(tg)};
+}
+const _a=addToCart;addToCart=id=>{fly(id);_a(id)};
+const _s=syncCartUI;syncCartUI=()=>{_s();tr()};
+
+/* ---------- 4. Bron chekida: chizilib chiqadigan ✓ + konfetti ---------- */
+function celebrate(){
+  const w=$('#receiptModal .rounded-full');
+  if(w)w.innerHTML='<svg viewBox="0 0 52 52" class="w-14 h-14" fill="none" stroke="#0F2E24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle class="chc" cx="26" cy="26" r="24"/><path class="chk" d="M15 27l8 8 14-16"/></svg>';
+  if(RM)return;
+  const cs=['#D97706','#F59E0B','#164234','#B45309','#FBF8F1'];
+  for(let i=0;i<70;i++){
+    const p=document.createElement('i'),dx=(Math.random()-.5)*innerWidth*.9,dy=innerHeight*(.3+Math.random()*.6);
+    p.style.cssText=`position:fixed;z-index:90;left:${innerWidth/2}px;top:35%;width:${6+Math.random()*6}px;height:${8+Math.random()*8}px;background:${cs[i%5]};border-radius:2px;pointer-events:none`;
+    document.body.appendChild(p);
+    p.animate([{transform:'translate(0,0) rotate(0)',opacity:1},{transform:`translate(${dx*.5}px,-120px) rotate(${Math.random()*360}deg)`,opacity:1,offset:.35},{transform:`translate(${dx}px,${dy}px) rotate(${Math.random()*720}deg)`,opacity:0}],{duration:1600+Math.random()*900,easing:'ease-out'}).onfinish=()=>p.remove();
+  }
+}
+const _r=submitReservation;submitReservation=e=>{_r(e);tr();celebrate()};
+
+/* ---------- 5. Mehmonlar fikri karuseli ---------- */
+$('#aloqa').insertAdjacentHTML('beforebegin',`<section class="py-20 bg-choyxona-cream"><div class="max-w-3xl mx-auto px-4 text-center"><span class="inline-block px-4 py-1.5 rounded-full bg-choyxona-forest/10 text-choyxona-forest text-xs font-bold uppercase tracking-widest">Mehmonlar fikri</span><h2 class="font-serif text-3xl sm:text-4xl font-bold text-choyxona-wood mt-3 mb-8">Mehmonlarimiz nima deydi</h2><div id="rev" class="min-h-[200px]"></div><div id="dots" class="flex justify-center gap-2 mt-6"></div></div></section>`);
+/* DIQQAT: bular namunaviy matnlar — haqiqiy mijoz fikrlari bilan almashtiring */
+const REV=[
+ ["Samarqand oshi haqiqatan ham boshqacha — guruch yumshoq, go'sht erib turadi. Oilam bilan so'rida o'tirib, ajoyib kech o'tkazdik.","Aziza K., Toshkent"],
+ ["Turistlar guruhi bilan keldik. Xizmat tez, narxlar adolatli, tandir noni esa juda mazali!","Mark S., Germaniya"],
+ ["VIP kabinada to'y oldi davrasini o'tkazdik. Hammasi a'lo darajada tashkil etildi.","Sherzod R., Samarqand"]];
+let ri=0,rt;
+function showRev(i){
+  ri=(i+REV.length)%REV.length;const r=REV[ri];
+  $('#rev').innerHTML=`<div class="card-in bg-white rounded-3xl p-8 border border-amber-900/10 shadow-sm"><i class="fa-solid fa-quote-left text-amber-400 text-2xl"></i><p class="font-serif text-xl sm:text-2xl text-choyxona-wood mt-3 leading-snug">${r[0]}</p><div class="mt-4 text-amber-500 text-sm tracking-widest">★★★★★</div><div class="mt-1 text-sm font-semibold text-choyxona-copper">${r[1]}</div></div>`;
+  $('#dots').innerHTML=REV.map((_,n)=>`<button data-n="${n}" aria-label="${n+1}" class="h-2.5 rounded-full transition-all ${n===ri?'w-7 bg-choyxona-gold':'w-2.5 bg-stone-300'}"></button>`).join('');
+  tr();
+}
+$('#dots').onclick=e=>{const n=e.target.dataset.n;if(n!==undefined){showRev(+n);clearInterval(rt);rt=setInterval(()=>showRev(ri+1),6000)}};
+showRev(0);rt=setInterval(()=>showRev(ri+1),6000);
+
+/* ---------- 6. Hero: bug' ko'tarilishi, girih aylanishi, parallax ---------- */
+$('section.min-h-screen .absolute.inset-0')?.insertAdjacentHTML('beforeend',`<div class="steam"><i style="left:48px;animation-delay:0s"></i><i style="left:66px;animation-delay:1.3s"></i><i style="left:84px;animation-delay:2.6s"></i><svg viewBox="0 0 24 24" width="140" height="140" style="position:absolute;bottom:0;left:0" fill="none" stroke="#F59E0B" stroke-width="1" stroke-linecap="round"><path d="M4 11h16c0 4.5-3.6 8-8 8s-8-3.5-8-8z"/><path d="M8 21h8"/></svg></div>`);
+$('section.min-h-screen svg.pointer-events-none')?.classList.add('spin-slow');
+const bg=$('section.min-h-screen img');
+if(bg&&!RM){let t=0;addEventListener('scroll',()=>{if(t)return;t=requestAnimationFrame(()=>{t=0;if(scrollY<1200)bg.style.transform=`translateY(${scrollY*.18}px) scale(1.15)`})},{passive:true})}
+
+/* ---------- 7. Scroll bilan ketma-ket paydo bo'lish ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const t=e.target;t.classList.add('in');io.unobserve(t);setTimeout(()=>{t.classList.remove('rv','in');t.style.transitionDelay=''},1100)}}),{threshold:.12});
+$$('#menyu .text-center,#muhit .lg\\:col-span-6,#joylar .grid>div,#bron .lg\\:col-span-7,#bron .lg\\:col-span-5,#aloqa .grid>div').forEach((e,i)=>{e.classList.add('rv');e.style.transitionDelay=(i%3)*120+'ms';io.observe(e)});
+
+/* ---------- 8. Joy kartalarida 3D tilt ---------- */
+if(matchMedia('(hover:hover)').matches&&!RM)$$('#joylar .grid>div').forEach(c=>{
+  c.classList.add('tilt');
+  c.onmousemove=e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(800px) rotateX(${-y*8}deg) rotateY(${x*8}deg) translateY(-4px)`};
+  c.onmouseleave=()=>c.style.transform='';
+});
+
+/* ---------- start ---------- */
+tr();addEventListener('DOMContentLoaded',tr);
+})();
+</script>
+<!-- ===== REGISTON EFFEKTLARI: shu blokni </body> dan OLDIN, eng oxirgi <script> ning pastiga qo'ying ===== -->
+<style>
+/* --- 1. Choy quyilishi --- */
+.tea-w{width:190px;margin:0 auto 6px;display:block;overflow:visible}
+.tea-pot{transform-origin:60px 92px;animation:tpot 10s infinite ease-in-out}
+@keyframes tpot{0%,6%{transform:rotate(0)}16%,66%{transform:rotate(18deg)}78%,100%{transform:rotate(0)}}
+.tea-stream{stroke-dasharray:70;stroke-dashoffset:70;opacity:0;animation:tstr 10s infinite ease-in-out}
+@keyframes tstr{0%,15%{stroke-dashoffset:70;opacity:0}19%{stroke-dashoffset:0;opacity:1}64%{stroke-dashoffset:0;opacity:1}68%{stroke-dashoffset:-70;opacity:0}100%{stroke-dashoffset:-70;opacity:0}}
+.tea-liq{animation:tliq 10s infinite ease-in-out}
+@keyframes tliq{0%,16%{transform:translateY(52px);opacity:1}66%,90%{transform:translateY(5px);opacity:1}97%{transform:translateY(5px);opacity:0}100%{transform:translateY(52px);opacity:0}}
+.tea-steam{opacity:0;animation:tsteam 10s infinite ease-in-out}
+.tea-steam.b{animation-delay:.7s}
+@keyframes tsteam{0%,68%{opacity:0;transform:translateY(0)}78%{opacity:.7}95%{opacity:0;transform:translateY(-14px)}100%{opacity:0}}
+/* --- 2/3. Barglar va uchqunlar --- */
+.fx-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2}
+.leaf{position:absolute;top:-60px;will-change:transform;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));backface-visibility:visible}
+/* --- 4. To'lqin --- */
+.wv{position:absolute;left:0;bottom:0;width:200%;height:100%;animation:wv 14s linear infinite}
+.wv.w2{animation-duration:9s;animation-direction:reverse}
+.wv.w3{animation-duration:20s}
+@keyframes wv{to{transform:translateX(-50%)}}
+.drop{position:absolute;bottom:34px;width:9px;height:12px;border-radius:50% 50% 50% 50%/62% 62% 38% 38%;background:radial-gradient(circle at 35% 30%,#fff,#f6d58a 55%,#d97706);opacity:0;animation:drop 3.6s infinite}
+@keyframes drop{0%{transform:translateY(0) scale(.5);opacity:0;animation-timing-function:cubic-bezier(.2,.7,.4,1)}12%{opacity:.95}45%{transform:translateY(-44px) scale(1);animation-timing-function:cubic-bezier(.6,0,.9,.5)}90%{transform:translateY(4px) scale(.7);opacity:.9}100%{transform:translateY(8px) scale(.3);opacity:0}}
+/* --- 5. Spotlight --- */
+#menuGrid>div,.menu-filter-btn,#joylar .grid>div,#bron button[type=submit],header a[href="#bron"],.mag{position:relative;overflow:hidden}
+#menuGrid>div::after,.menu-filter-btn::after,#joylar .grid>div::after,#bron button[type=submit]::after,header a[href="#bron"]::after,.mag::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;border-radius:inherit;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(251,191,36,.30),rgba(217,119,6,.10) 45%,transparent 70%);mix-blend-mode:soft-light}
+#menuGrid>div:hover::after,.menu-filter-btn:hover::after,#joylar .grid>div:hover::after,#bron button[type=submit]:hover::after,header a[href="#bron"]:hover::after,.mag:hover::after{opacity:1}
+#menuGrid>div:hover{box-shadow:0 20px 50px -18px rgba(180,83,9,.45),0 0 0 1px rgba(217,119,6,.35)}
+#joylar .grid>div::after{mix-blend-mode:screen;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(251,191,36,.22),transparent 65%)}
+/* --- 6. Magnit --- */
+.mag{transition:translate .35s cubic-bezier(.2,.8,.2,1),transform .3s,box-shadow .3s,background .3s}
+.mag.pull{transition:translate .08s linear,transform .3s,box-shadow .3s}
+@media(prefers-reduced-motion:reduce){.tea-pot,.tea-stream,.tea-liq,.tea-steam,.wv,.drop{animation:none}.tea-liq{transform:translateY(5px)}}
+</style>
+
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const HOVER=matchMedia('(hover:hover)').matches;
+
+/* ================= 1. CHOY QUYILISHI ================= */
+const menuHead=$('#menyu .text-center');
+if(menuHead){
+  menuHead.insertAdjacentHTML('afterbegin',`
+  <svg class="tea-w" viewBox="0 0 240 150" aria-hidden="true">
+    <defs>
+      <linearGradient id="tpg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d5a46"/><stop offset="1" stop-color="#0F2E24"/></linearGradient>
+      <linearGradient id="tcg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e0a23a"/><stop offset="1" stop-color="#8a4b12"/></linearGradient>
+      <linearGradient id="tcup" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fffdf7"/><stop offset=".6" stop-color="#f1e6d0"/><stop offset="1" stop-color="#d9c9a8"/></linearGradient>
+      <clipPath id="tcClip"><path d="M131 98h68c0 27-13 44-34 44s-34-17-34-44z"/></clipPath>
+    </defs>
+    <ellipse cx="165" cy="146" rx="46" ry="4" fill="#2C1A12" opacity=".15"/>
+    <!-- piyola -->
+    <path d="M131 98h68c0 27-13 44-34 44s-34-17-34-44z" fill="url(#tcup)" stroke="#B45309" stroke-width="1.6"/>
+    <g clip-path="url(#tcClip)">
+      <g class="tea-liq"><rect x="125" y="98" width="82" height="60" fill="url(#tcg)"/><rect x="125" y="98" width="82" height="3" fill="#f6d58a" opacity=".7"/></g>
+    </g>
+    <path d="M131 98h68" stroke="#B45309" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M147 112c4 14 8 22 18 24" stroke="#fff" stroke-width="2" opacity=".35" fill="none" stroke-linecap="round"/>
+    <path d="M151 142h28" stroke="#B45309" stroke-width="2" stroke-linecap="round"/>
+    <!-- bug' -->
+    <path class="tea-steam" d="M155 90c-5-8 5-12 0-20" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+    <path class="tea-steam b" d="M172 90c-5-8 5-12 0-20" stroke="#B45309" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- oqim -->
+    <path class="tea-stream" d="M121 71Q152 72 163 118" stroke="#d9952b" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+    <!-- choynak -->
+    <g class="tea-pot">
+      <path d="M30 76c-14-2-16 20-2 22" stroke="#B45309" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M86 72c12-2 20-10 26-20 2-3 6-1 4 3-6 14-16 24-30 28z" fill="url(#tpg)" stroke="#D97706" stroke-width="1.4"/>
+      <ellipse cx="60" cy="78" rx="33" ry="27" fill="url(#tpg)" stroke="#D97706" stroke-width="1.6"/>
+      <path d="M40 66c6-8 18-11 28-8" stroke="#fff" stroke-width="2" opacity=".25" fill="none" stroke-linecap="round"/>
+      <path d="M36 74c10 4 38 4 48 0" stroke="#F59E0B" stroke-width="1.2" fill="none" opacity=".8"/>
+      <circle cx="48" cy="86" r="2.3" fill="#F59E0B"/><circle cx="60" cy="90" r="2.3" fill="#F59E0B"/><circle cx="72" cy="86" r="2.3" fill="#F59E0B"/>
+      <path d="M38 54c0-8 44-8 44 0z" fill="#0F2E24" stroke="#D97706" stroke-width="1.4"/>
+      <circle cx="60" cy="44" r="4.2" fill="#D97706"/>
+    </g>
+  </svg>`);
+}
+
+/* ================= 2. BARGLAR / CHINOR YAPROQLARI ================= */
+function leaves(host,n){
+  if(!host||RM)return;
+  const L=document.createElement('div');L.className='fx-layer';host.appendChild(L);
+  const cols=[['#e3b13a','#a97a14'],['#d3c23c','#8c8a1c'],['#a8bf3f','#5f7d1e'],['#76a03c','#3f6420'],['#e9c658','#b0861c'],['#c98a2b','#7a4a10']];
+  const H=Math.max(host.offsetHeight,600)+120;
+  const N=innerWidth<640?Math.ceil(n*.55):n;
+  for(let i=0;i<N;i++){
+    const [c1,c2]=cols[i%cols.length],s=16+Math.random()*28,e=document.createElement('div');
+    e.className='leaf';
+    e.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.55+Math.random()*.4}`;
+    e.innerHTML=`<svg viewBox="0 0 24 24" width="100%" height="100%"><defs><linearGradient id="lg${host.id||'h'}${i}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c1}"/><stop offset="1" stop-color="${c2}"/></linearGradient></defs><path d="M12 1.5l2.2 4.6 3.4-1.9-.3 4.4 4.7.3-2.4 3.7 3 2.4-4.6.9.9 4.3-4.1-1.4-1.8 4.7-1.8-4.7-4.1 1.4.9-4.3-4.6-.9 3-2.4-2.4-3.7 4.7-.3-.3-4.4 3.4 1.9z" fill="url(#lg${host.id||'h'}${i})"/><path d="M12 5v17M12 12l-5-4M12 12l5-4M12 15l-4-1M12 15l4-1" stroke="${c2}" stroke-width=".7" fill="none" opacity=".7"/></svg>`;
+    L.appendChild(e);
+    const dur=16000+Math.random()*16000,sw=30+Math.random()*90,dir=Math.random()<.5?-1:1,r0=Math.random()*360;
+    const kf=[];const steps=7;
+    for(let k=0;k<=steps;k++){
+      const t=k/steps,x=Math.sin(t*Math.PI*2*(1+Math.random()*.4)+i)*sw*dir;
+      kf.push({offset:t,transform:`translate3d(${x}px,${t*H}px,0) rotateZ(${r0+dir*t*540}deg) rotateX(${Math.sin(t*9+i)*65}deg) rotateY(${Math.cos(t*7+i)*65}deg)`});
+    }
+    e.animate(kf,{duration:dur,delay:-Math.random()*dur,iterations:Infinity,easing:'linear'});
+  }
+}
+const hero=$('section.min-h-screen');if(hero)leaves(hero,16);
+const muhit=$('#muhit');if(muhit){muhit.classList.add('relative');leaves(muhit,12)}
+
+/* ================= 3. TANDIR UCHQUNLARI ================= */
+const menyu=$('#menyu');
+if(menyu&&!RM){
+  menyu.classList.add('relative','overflow-hidden');
+  const inner=$('.max-w-7xl',menyu);if(inner){inner.style.position='relative';inner.style.zIndex='1'}
+  const cv=document.createElement('canvas');cv.style.cssText='position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0';
+  menyu.prepend(cv);
+  const ctx=cv.getContext('2d');let W=0,H=0,dpr=1,P=[],vis=false,glow=0,raf=0;
+  const size=()=>{dpr=Math.min(devicePixelRatio||1,2);W=menyu.clientWidth;H=menyu.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)};
+  size();addEventListener('resize',size);
+  const spawn=()=>P.push({x:Math.random()*W,y:H+6,vy:.7+Math.random()*1.7,ph:Math.random()*6.28,fr:.01+Math.random()*.03,amp:.2+Math.random()*.7,r:.8+Math.random()*2.2,life:1,dec:.003+Math.random()*.007,h:22+Math.random()*26});
+  const loop=()=>{
+    raf=0;if(!vis)return;
+    const hot=(typeof activeCategory!=='undefined'&&activeCategory==='tandir');
+    glow+=((hot?1:0)-glow)*.04;
+    ctx.clearRect(0,0,W,H);
+    if(glow>.02){const g=ctx.createLinearGradient(0,H,0,H*.45);g.addColorStop(0,`rgba(234,88,12,${.16*glow})`);g.addColorStop(.5,`rgba(245,158,11,${.05*glow})`);g.addColorStop(1,'rgba(245,158,11,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)}
+    const rate=(hot?1.6:.18)*(W<640?.5:1);
+    if(Math.random()<rate%1)spawn();for(let i=0;i<Math.floor(rate);i++)spawn();
+    for(let i=P.length-1;i>=0;i--){
+      const p=P[i];p.ph+=p.fr*6;p.x+=Math.sin(p.ph)*p.amp;p.y-=p.vy;p.vy*=.9985;p.life-=p.dec;
+      if(p.life<=0||p.y<-10){P.splice(i,1);continue}
+      const a=Math.min(1,p.life*1.6),f=p.life;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*(.5+f*.5),0,6.283);
+      ctx.fillStyle=`hsla(${p.h+f*14},100%,${48+f*14}%,${a})`;
+      ctx.shadowColor=`hsla(${p.h},100%,55%,${a})`;ctx.shadowBlur=10;ctx.fill();
+    }
+    ctx.shadowBlur=0;
+    raf=requestAnimationFrame(loop);
+  };
+  new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis&&!raf)raf=requestAnimationFrame(loop)}).observe(menyu);
+}
+
+/* ================= 4. FAVVORA TO'LQINI ================= */
+const joylar=$('#joylar');
+if(joylar){
+  const A='M0 40C150 10 300 70 450 40S750 10 900 40 1050 70 1200 40',F=A+'V80H0Z';
+  const wave=(cls,fill,stroke,dy)=>`<svg class="wv ${cls}" viewBox="0 0 2400 80" preserveAspectRatio="none" style="${dy?`bottom:${dy}px;`:''}"><path d="${F}" fill="${fill}"/><path d="${F}" transform="translate(1200)" fill="${fill}"/>${stroke?`<path d="${A}" fill="none" stroke="${stroke}" stroke-width="1.6"/><path d="${A}" transform="translate(1200)" fill="none" stroke="${stroke}" stroke-width="1.6"/>`:''}</svg>`;
+  const drops=Array.from({length:6},(_,i)=>`<i class="drop" style="left:${12+i*15+Math.random()*6}%;animation-delay:${(i*.7+Math.random()).toFixed(2)}s;animation-duration:${3+Math.random()*1.6}s"></i>`).join('');
+  joylar.insertAdjacentHTML('afterbegin',`<div class="relative h-24 overflow-hidden pointer-events-none -mx-4 sm:-mx-6 lg:-mx-8 mb-8" aria-hidden="true">${wave('w3','rgba(245,158,11,.10)','rgba(245,158,11,.35)',10)}${wave('w2','rgba(217,119,6,.16)','rgba(251,191,36,.55)',4)}${wave('w1','rgba(22,66,52,.95)','rgba(245,158,11,.7)',0)}${drops}</div>`);
+}
+
+/* ================= 5. SPOTLIGHT ================= */
+if(HOVER){
+  const SEL='#menuGrid>div,.menu-filter-btn,#joylar .grid>div,#bron button[type=submit],header a[href="#bron"],.mag';
+  let t=0,ev;
+  document.addEventListener('pointermove',e=>{
+    ev=e;if(t)return;
+    t=requestAnimationFrame(()=>{t=0;const el=ev.target.closest&&ev.target.closest(SEL);if(!el)return;
+      const r=el.getBoundingClientRect();el.style.setProperty('--mx',(ev.clientX-r.left)+'px');el.style.setProperty('--my',(ev.clientY-r.top)+'px')});
+  },{passive:true});
+}
+
+/* ================= 6. MAGNIT TUGMA ================= */
+if(HOVER&&!RM){
+  const mags=$$('a[href="#bron"]').filter(a=>/Stol bron|Забронировать/.test(a.textContent)&&!a.closest('#mobileMenu')&&!a.closest('#cartDrawer'));
+  mags.forEach(m=>m.classList.add('mag'));
+  const R=110,S=.38;
+  document.addEventListener('pointermove',e=>{
+    mags.forEach(m=>{
+      if(!m.offsetParent)return;
+      m.style.translate='';const r=m.getBoundingClientRect();
+      const cx=r.left+r.width/2,cy=r.top+r.height/2,dx=e.clientX-cx,dy=e.clientY-cy,d=Math.hypot(dx,dy),lim=Math.max(r.width,r.height)/2+R;
+      if(d<lim){m.classList.add('pull');const k=1-d/lim*.4;m.style.translate=`${dx*S*k}px ${dy*S*k}px`}
+      else{m.classList.remove('pull');m.style.translate='0 0'}
+    });
+  },{passive:true});
+  document.addEventListener('pointerleave',()=>mags.forEach(m=>{m.classList.remove('pull');m.style.translate='0 0'}));
+}
+})();
+</script>
+</body>
+</html> 
